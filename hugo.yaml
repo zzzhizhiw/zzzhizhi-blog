@@ -1,0 +1,229 @@
+languageCode: zh-cn
+theme: PaperMod
+
+pagination:
+  paperSize: 5
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: true
+buildExpired: true
+enableEmoji: true
+enableGitInfo: true
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production
+  keywords: [致之, zzzhizhi, 博客, Blog]
+  images: ["<link or path of image for opengraph, twitter-cards>"]
+  DateFormat: "2006-01-02"
+  defaultTheme: auto
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: true
+  hidemeta: false
+  hideSummary: false
+  showToc: true
+  tocopen: true
+
+  assets:
+    disableHLJS: true
+    disableFingerprinting: true
+
+    favicon: "/favicon.ico"
+    favicon16x16: "/favicon-16x16.ico"
+    favicon32x32: "/favicon-32x32.ico"
+    apple_touch_icon: "/apple-touch-icon.jpg"
+    safari_pinned_tab: "/safari-pinned-tab.svg"
+
+  homeInfoParams:
+    Title: "Hi there \U0001F44B"
+    Content: Welcome to my blog
+
+  analytics:
+    google:
+      SiteVerificationTag: "XYZabc"
+    bing:
+      SiteVerificationTag: "XYZabc"
+    yandex:
+      SiteVerificationTag: "XYZabc"
+
+  cover:
+    hidden: true
+    hiddenInList: true
+    hiddenInSingle: true
+
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    limit: 10
+    keys: ["title", "permalink", "summary", "content"]
+
+defaultContentLanguage: zh-cn
+defaultContentLanguageInSubdir: true
+
+languages:
+  zh-cn:
+    languageName: "简体中文"
+    contentDir: "/content/zh-cn"
+    weight: 1
+    title: "致之 | zzzhizhi"
+    description: "致之的博客"
+    params:
+      author: "致之"
+      label:
+        text: "首页"
+        icon: "/apple-touch-icon.jpg"
+        iconHeight: 35
+      
+      profileMode:
+        enabled: true
+        title: "致之"
+        subtitle: "写代码是热爱，写到世界充满爱！"
+        imageUrl: "/apple-touch-icon.jpg"
+        buttons:
+          - name: "博客"
+            url: "posts"
+          - name: "标签"
+            url: "tags"
+      
+      homeInfoParams:
+        Title: "你好 👋"
+        Content: "欢迎来到我的博客"
+      
+      socialIcons:
+        - name: github
+          url: "https://github.com/zzzhizhiw"
+        - name: bilibili
+          url: "https://space.bilibili.com/437297385"
+        - name: email
+          url: "mailto:mail@zzzhizhi.top"
+        - name: rss
+          url: "/zh-cn/index.xml"
+      
+      editPost:
+        URL: "https://github.com/zzzhizhiw/zzzhizhi-blog/content/zh-cn"
+        Text: "编辑"
+        appendFilePath: true
+    
+    menu:
+      main:
+        - identifier: "search"
+          name: "搜索"
+          url: "/search"
+          weight: 1
+        - identifier: "archives"
+          name: "归档"
+          url: "/archives"
+          weight: 2
+        - identifier: "categories"
+          name: "分类"
+          url: "/categories"
+          weight: 3
+        - identifier: "tags"
+          name: "标签"
+          url: "/tags"
+          weight: 4
+
+  en:
+    languageName: "English"
+    contentDir: "/content/en"
+    weight: 2
+    title: "zzzhizhi | 致之"
+    description: "zzzhizhi's blog"
+    params:
+      author: "zzzhizhi"
+      label:
+        text: "Home"
+        icon: "/apple-touch-icon.jpg"
+        iconHeight: 35
+      
+      profileMode:
+        enabled: true
+        title: "zzzhizhi"
+        subtitle: "Coding is love, coding to the world is full of love!"
+        imageUrl: "/apple-touch-icon.jpg"
+        buttons:
+          - name: "Posts"
+            url: "posts"
+          - name: "Tags"
+            url: "tags"
+      
+      homeInfoParams:
+        Title: "Hi there 👋"
+        Content: "Welcome to my blog"
+      
+      socialIcons:
+        - name: github
+          url: "https://github.com/zzzhizhiw"
+        - name: bilibili
+          url: "https://space.bilibili.com/437297385"
+        - name: email
+          url: "mailto:mail@zzzhizhi.top"
+        - name: rss
+          url: "/en/index.xml"
+      
+      editPost:
+        URL: "https://github.com/zzzhizhiw/zzzhizhi-blog/content/en"
+        Text: "Edit"
+        appendFilePath: true
+    
+    menu:
+      main:
+        - identifier: "search"
+          name: "Search"
+          url: "/search"
+          weight: 1
+        - identifier: "archives"
+          name: "Archives"
+          url: "/archives"
+          weight: 2
+        - identifier: "categories"
+          name: "Categories"
+          url: "/categories"
+          weight: 3
+        - identifier: "tags"
+          name: "Tags"
+          url: "/tags"
+          weight: 4
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+markup:
+  highlight:
+    noClasses: false
+    codeFences: true
+    guessSyntax: true
+    lineNos: true
+    lineNumbersInTable: true
+    style: monokai
+    
+  goldmark:
+    renderer:
+      unsafe: true
+    
+  tableOfContents:
+    startLevel: 1
+    endLevel: 3
+    ordered: false
