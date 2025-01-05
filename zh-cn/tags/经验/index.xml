@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>经验 on 致之 | zzzhizhi</title>
-    <link>https://www.zzzhizhi.top/zh-cn/tags/%E7%BB%8F%E9%AA%8C/</link>
+    <link>/zh-cn/tags/%E7%BB%8F%E9%AA%8C/</link>
     <description>Recent content in 经验 on 致之 | zzzhizhi</description>
     <image>
       <title>致之 | zzzhizhi</title>
-      <url>https://www.zzzhizhi.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>https://www.zzzhizhi.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <language>zh-cn</language>
-    <lastBuildDate>Sun, 05 Jan 2025 11:18:40 +0800</lastBuildDate>
-    <atom:link href="https://www.zzzhizhi.top/zh-cn/tags/%E7%BB%8F%E9%AA%8C/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Jan 2025 14:35:53 +0800</lastBuildDate>
+    <atom:link href="/zh-cn/tags/%E7%BB%8F%E9%AA%8C/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hugo 博客搭建经验总结</title>
-      <link>https://www.zzzhizhi.top/zh-cn/posts/hugo-blog-setup-tips/</link>
-      <pubDate>Sat, 04 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>https://www.zzzhizhi.top/zh-cn/posts/hugo-blog-setup-tips/</guid>
+      <link>/zh-cn/posts/hugo-blog-setup-tips/</link>
+      <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>/zh-cn/posts/hugo-blog-setup-tips/</guid>
       <description>总结了使用 PaperMod 主题搭建 Hugo 博客的过程，包括一些关键功能的配置和调试经验。</description>
     </item>
   </channel>

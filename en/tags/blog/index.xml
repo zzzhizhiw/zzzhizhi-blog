@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Blog on zzzhizhi | 致之</title>
-    <link>https://www.zzzhizhi.top/en/tags/blog/</link>
+    <link>/en/tags/blog/</link>
     <description>Recent content in Blog on zzzhizhi | 致之</description>
     <image>
       <title>zzzhizhi | 致之</title>
-      <url>https://www.zzzhizhi.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>https://www.zzzhizhi.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <language>en</language>
-    <lastBuildDate>Sun, 05 Jan 2025 11:18:40 +0800</lastBuildDate>
-    <atom:link href="https://www.zzzhizhi.top/en/tags/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 05 Jan 2025 14:35:53 +0800</lastBuildDate>
+    <atom:link href="/en/tags/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hugo Blog Setup Experience Summary</title>
-      <link>https://www.zzzhizhi.top/en/posts/hugo-blog-setup-tips/</link>
-      <pubDate>Sat, 04 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>https://www.zzzhizhi.top/en/posts/hugo-blog-setup-tips/</guid>
-      <description>This article summarizes the process of setting up a Hugo blog using the PaperMod theme, including key features like table of contents, multilingual configuration, comment system, search support, etc.</description>
+      <title>Hugo Blog Setup Experiences Summary</title>
+      <link>/en/posts/hugo-blog-setup-tips/</link>
+      <pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>/en/posts/hugo-blog-setup-tips/</guid>
+      <description>Summarizes the process of building a Hugo blog using PaperMod theme, including configuration and debugging tips.</description>
     </item>
   </channel>
 </rss>

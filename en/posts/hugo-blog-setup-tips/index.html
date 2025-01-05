@@ -1,209 +1,689 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Hugo Blog Setup Experience Summary | zzzhizhi | 致之</title>
-<meta name=keywords content="Blog,Experience"><meta name=description content="This article summarizes the process of setting up a Hugo blog using the PaperMod theme, including key features like table of contents, multilingual configuration, comment system, search support, etc."><meta name=author content="致之"><link rel=canonical href=https://www.zzzhizhi.top/en/posts/hugo-blog-setup-tips/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style><link rel=icon href=https://www.zzzhizhi.top/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://www.zzzhizhi.top/favicon-16x16.ico><link rel=icon type=image/png sizes=32x32 href=https://www.zzzhizhi.top/favicon-32x32.ico><link rel=apple-touch-icon href=https://www.zzzhizhi.top/apple-touch-icon.jpg><link rel=mask-icon href=https://www.zzzhizhi.top/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-cn href=https://www.zzzhizhi.top/zh-cn/posts/hugo-blog-setup-tips/><link rel=alternate hreflang=en href=https://www.zzzhizhi.top/en/posts/hugo-blog-setup-tips/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(43, 43, 43);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:url" content="https://www.zzzhizhi.top/en/posts/hugo-blog-setup-tips/"><meta property="og:site_name" content="zzzhizhi | 致之"><meta property="og:title" content="Hugo Blog Setup Experience Summary"><meta property="og:description" content="This article summarizes the process of setting up a Hugo blog using the PaperMod theme, including key features like table of contents, multilingual configuration, comment system, search support, etc."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-01-04T00:00:00+00:00"><meta property="article:modified_time" content="2025-01-05T11:18:40+08:00"><meta property="article:tag" content="Blog"><meta property="article:tag" content="Experience"><meta property="og:image" content="https://www.zzzhizhi.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://www.zzzhizhi.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="Hugo Blog Setup Experience Summary"><meta name=twitter:description content="This article summarizes the process of setting up a Hugo blog using the PaperMod theme, including key features like table of contents, multilingual configuration, comment system, search support, etc."><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://www.zzzhizhi.top/en/posts/"},{"@type":"ListItem","position":2,"name":"Hugo Blog Setup Experience Summary","item":"https://www.zzzhizhi.top/en/posts/hugo-blog-setup-tips/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Hugo Blog Setup Experience Summary","name":"Hugo Blog Setup Experience Summary","description":"This article summarizes the process of setting up a Hugo blog using the PaperMod theme, including key features like table of contents, multilingual configuration, comment system, search support, etc.","keywords":["Blog","Experience"],"articleBody":"Summarized my experience setting up a Hugo blog with the PaperMod theme, including configuration and debugging tips for key features.\nThe theme I used is PaperMod, and this article uses it as an example.\nContent To display a table of contents on the article page, pay attention to the following configuration:\n1 2 3 params: showToc: true # Display the table of contents globally tocopen: true # Expand the table of contents by default Multilingual Configuration This configuration can be tricky. If, like me, you prefer a multilingual blog, make sure to use the following settings:\n1 2 defaultContentLanguage: zh-cn defaultContentLanguageInSubdir: true defaultContentLanguage: zh-cn\nSets the default language of the site to Simplified Chinese Affects the URL structure generated by Hugo Determines the language identifier for default content It is recommended not to modify the above settings.\ndefaultContentLanguageInSubdir: true\nControls whether the default language content is placed in a subdirectory true: The default generated path is /zh-cn/posts/ false: The default generated path is /posts/ Example:\n1 2 3 4 5 6 7 8 9 10 11 12 # When defaultContentLanguageInSubdir: true public/ ├── zh-cn/ # Default language (Chinese) content │ └── posts/ └── en/ # Other language content └── posts/ # When defaultContentLanguageInSubdir: false public/ ├── posts/ # Default language (Chinese) content └── en/ # Other language content └── posts/ You need to configure the multilingual content directory:\n1 2 3 4 5 6 7 8 9 languages: zh-cn: languageName: \"Simplified Chinese\" contentDir: \"/content/zh-cn\" # /content/ # ... Other multilingual configurations can go here en: languageName: \"English\" contentDir: \"/content/en\" # ... With multilingual configuration, the valid paths for search.md and archive.md are:\n1 2 3 4 5 6 7 8 9 content/ ├── zh-cn/ │ ├── posts/ │ ├── search.zh-cn.md # search..md │ └── archive.md └── en/ ├── posts/ ├── search.en.md └── archive.md Keep the URLs in hugo.yaml with standard settings:\n1 2 3 4 5 6 7 8 9 10 11 12 languages: zh-cn: menu: main: - identifier: \"search\" name: \"Search\" url: \"/search\" weight: 1 - identifier: \"archives\" name: \"Archives\" url: \"/archives\" weight: 2 Search To enable search functionality, configure the following in hugo.yaml:\n1 2 3 4 5 outputs: home: - HTML - RSS - JSON # JSON is key for enabling search Fonts For example, to add JetBrains Mono font, configure as follows.\nCreate /themes/PaperMod/assets/css/extended/fonts.css:\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 /* Import online CDN font */ @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700\u0026display=swap'); :root { --mono-font-family: \"JetBrains Mono\", Consolas, Monaco, monospace; --cjk-font-family: -apple-system, BlinkMacSystemFont, \"PingFang SC\", \"Microsoft YaHei\"; } body { /* Prefer using monospace font */ /*font-family: var(--mono-font-family), var(--cjk-font-family); */ /* Only use basic font */ font-family: var(--cjk-font-family); } /* Code blocks and inline code use monospace font */ code, pre { font-family: var(--mono-font-family); } Code Block Background Color The default code block background is very dark. Here’s how to modify it.\nFind the --code-block-bg variable in /themes/PaperMod/assets/css/common/post-single.css:\n1 2 3 4 5 6 7 8 9 10 .post-content pre code { display: grid; margin: auto 0; padding: 10px; color: rgb(213, 213, 214); background: var(--code-block-bg) !important; border-radius: var(--radius); overflow-x: auto; word-break: break-all; } In /themes/PaperMod/assets/css/core/theme-vars.css, modify both occurrences:\n1 2 3 4 5 6 7 8 9 10 11 :root { ... --code-block-bg: rgb(43, 43, 43); ... } .dark { ... --code-block-bg: rgb(43, 43, 43); ... } Comments I use Giscus, which integrates with GitHub Discussions.\nRequirements:\nPublic repository Installed giscus app Enabled Discussions feature Visit Giscus website for configuration.\nCreate /layouts/partials/comments.html with the provided script tag and enable comments in hugo.yaml:\n1 2 params: comments: true Deployment After hugo -D, Hugo builds the static blog in /public. I usually clear this directory before building.\nTo deploy only the static blog, use this root directory script:\n1 2 3 4 5 6 7 8 hugo -D cd public git init git remote add origin git@github.com:/.git git pull origin main git add -A git commit -m \"push\" git push -f origin main Combined with Vercel CI/CD, one script handles all deployment needs.\n","wordCount":"675","inLanguage":"en","image":"https://www.zzzhizhi.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E","datePublished":"2025-01-04T00:00:00Z","dateModified":"2025-01-05T11:18:40+08:00","author":{"@type":"Person","name":"致之"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.zzzhizhi.top/en/posts/hugo-blog-setup-tips/"},"publisher":{"@type":"Organization","name":"zzzhizhi | 致之","logo":{"@type":"ImageObject","url":"https://www.zzzhizhi.top/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://www.zzzhizhi.top/en/ accesskey=h title="Home (Alt + H)"><img src=https://www.zzzhizhi.top/apple-touch-icon.jpg alt aria-label=logo height=35>Home</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li><li><a href=https://www.zzzhizhi.top/zh-cn/ title=简体中文 aria-label=简体中文>Zh-Cn</a></li></ul></div></div><ul id=menu><li><a href=https://www.zzzhizhi.top/en/search title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=https://www.zzzhizhi.top/en/archives title=Archives><span>Archives</span></a></li><li><a href=https://www.zzzhizhi.top/en/categories title=Categories><span>Categories</span></a></li><li><a href=https://www.zzzhizhi.top/en/tags title=Tags><span>Tags</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://www.zzzhizhi.top/en/>Home</a>&nbsp;»&nbsp;<a href=https://www.zzzhizhi.top/en/posts/>Posts</a></div><h1 class="post-title entry-hint-parent">Hugo Blog Setup Experience Summary</h1><div class=post-description>This article summarizes the process of setting up a Hugo blog using the PaperMod theme, including key features like table of contents, multilingual configuration, comment system, search support, etc.</div><div class=post-meta><span title='2025-01-04 00:00:00 +0000 UTC'>2025-01-04</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;675 words&nbsp;·&nbsp;致之&nbsp;|&nbsp;Translations:<ul class=i18n_list><li><a href=https://www.zzzhizhi.top/zh-cn/posts/hugo-blog-setup-tips/>Zh-Cn</a></li></ul>&nbsp;|&nbsp;<a href=https://github.com/zzzhizhiw/zzzhizhi-blog/posts/hugo-blog-setup-tips.md rel="noopener noreferrer" target=_blank>Edit</a></div></header><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><nav id=TableOfContents><ul><li><ul><li><ul><li><a href=#content>Content</a></li><li><a href=#multilingual-configuration>Multilingual Configuration</a></li><li><a href=#search>Search</a></li><li><a href=#fonts>Fonts</a></li><li><a href=#code-block-background-color>Code Block Background Color</a></li><li><a href=#comments>Comments</a></li><li><a href=#deployment>Deployment</a></li></ul></li></ul></li></ul></nav></div></details></div><div class=post-content><p>Summarized my experience setting up a Hugo blog with the PaperMod theme, including configuration and debugging tips for key features.</p><p>The theme I used is PaperMod, and this article uses it as an example.</p><h3 id=content>Content<a hidden class=anchor aria-hidden=true href=#content>#</a></h3><p>To display a table of contents on the article page, pay attention to the following configuration:</p><div class=highlight><div style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">3
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#7ee787>params</span>:<span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>  </span><span style=color:#7ee787>showToc</span>:<span style=color:#6e7681> </span><span style=color:#79c0ff>true</span><span style=color:#6e7681> </span><span style=color:#8b949e;font-style:italic># Display the table of contents globally</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>  </span><span style=color:#7ee787>tocopen</span>:<span style=color:#6e7681> </span><span style=color:#79c0ff>true</span><span style=color:#6e7681> </span><span style=color:#8b949e;font-style:italic># Expand the table of contents by default</span><span style=color:#6e7681>
-</span></span></span></code></pre></td></tr></table></div></div><h3 id=multilingual-configuration>Multilingual Configuration<a hidden class=anchor aria-hidden=true href=#multilingual-configuration>#</a></h3><p>This configuration can be tricky. If, like me, you prefer a multilingual blog, make sure to use the following settings:</p><div class=highlight><div style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">2
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#7ee787>defaultContentLanguage</span>:<span style=color:#6e7681> </span><span style=color:#a5d6ff>zh-cn</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681></span><span style=color:#7ee787>defaultContentLanguageInSubdir</span>:<span style=color:#6e7681> </span><span style=color:#79c0ff>true</span><span style=color:#6e7681>
-</span></span></span></code></pre></td></tr></table></div></div><p><code>defaultContentLanguage: zh-cn</code></p><ul><li>Sets the default language of the site to Simplified Chinese</li><li>Affects the URL structure generated by Hugo</li><li>Determines the language identifier for default content</li></ul><p>It is recommended not to modify the above settings.</p><p><code>defaultContentLanguageInSubdir: true</code></p><ul><li>Controls whether the default language content is placed in a subdirectory</li><li>true: The default generated path is /zh-cn/posts/</li><li>false: The default generated path is /posts/</li></ul><p><strong>Example:</strong></p><div class=highlight><div style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 8
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 9
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">10
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">11
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">12
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#8b949e;font-style:italic># When defaultContentLanguageInSubdir: true</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681></span><span style=color:#a5d6ff>public/</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681></span><span style=color:#a5d6ff>├── zh-cn/         </span><span style=color:#6e7681> </span><span style=color:#8b949e;font-style:italic># Default language (Chinese) content</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681></span><span style=color:#a5d6ff>│   └── posts/</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681></span><span style=color:#a5d6ff>└── en/            </span><span style=color:#6e7681> </span><span style=color:#8b949e;font-style:italic># Other language content</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span><span style=color:#a5d6ff>└── posts/</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681></span><span style=color:#8b949e;font-style:italic># When defaultContentLanguageInSubdir: false</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681></span><span style=color:#a5d6ff>public/</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681></span><span style=color:#a5d6ff>├── posts/         </span><span style=color:#6e7681> </span><span style=color:#8b949e;font-style:italic># Default language (Chinese) content</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681></span><span style=color:#a5d6ff>└── en/            </span><span style=color:#6e7681> </span><span style=color:#8b949e;font-style:italic># Other language content</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span><span style=color:#a5d6ff>└── posts/</span><span style=color:#6e7681>
-</span></span></span></code></pre></td></tr></table></div></div><p>You need to configure the multilingual content directory:</p><div class=highlight><div style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">8
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">9
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#7ee787>languages</span>:<span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>  </span><span style=color:#7ee787>zh-cn</span>:<span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span><span style=color:#7ee787>languageName</span>:<span style=color:#6e7681> </span><span style=color:#a5d6ff>&#34;Simplified Chinese&#34;</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span><span style=color:#7ee787>contentDir</span>:<span style=color:#6e7681> </span><span style=color:#a5d6ff>&#34;/content/zh-cn&#34;</span><span style=color:#6e7681> </span><span style=color:#8b949e;font-style:italic># /content/&lt;lang&gt;</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span><span style=color:#8b949e;font-style:italic># ... Other multilingual configurations can go here</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>  </span><span style=color:#7ee787>en</span>:<span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span><span style=color:#7ee787>languageName</span>:<span style=color:#6e7681> </span><span style=color:#a5d6ff>&#34;English&#34;</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span><span style=color:#7ee787>contentDir</span>:<span style=color:#6e7681> </span><span style=color:#a5d6ff>&#34;/content/en&#34;</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span><span style=color:#8b949e;font-style:italic># ...</span><span style=color:#6e7681>
-</span></span></span></code></pre></td></tr></table></div></div><p>With multilingual configuration, the valid paths for <code>search.md</code> and <code>archive.md</code> are:</p><div class=highlight><div style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">8
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">9
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#a5d6ff>content/</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681></span><span style=color:#a5d6ff>├── zh-cn/</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681></span><span style=color:#a5d6ff>│   ├── posts/</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681></span><span style=color:#a5d6ff>│   ├── search.zh-cn.md</span><span style=color:#6e7681> </span><span style=color:#8b949e;font-style:italic># search.&lt;lang&gt;.md</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681></span><span style=color:#a5d6ff>│   └── archive.md</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681></span><span style=color:#a5d6ff>└── en/</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span><span style=color:#a5d6ff>├── posts/</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span><span style=color:#a5d6ff>├── search.en.md</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span><span style=color:#a5d6ff>└── archive.md</span><span style=color:#6e7681>
-</span></span></span></code></pre></td></tr></table></div></div><p>Keep the URLs in <code>hugo.yaml</code> with standard settings:</p><div class=highlight><div style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 8
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 9
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">10
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">11
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">12
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#7ee787>languages</span>:<span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>  </span><span style=color:#7ee787>zh-cn</span>:<span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span><span style=color:#7ee787>menu</span>:<span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>      </span><span style=color:#7ee787>main</span>:<span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>        </span>- <span style=color:#7ee787>identifier</span>:<span style=color:#6e7681> </span><span style=color:#a5d6ff>&#34;search&#34;</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>          </span><span style=color:#7ee787>name</span>:<span style=color:#6e7681> </span><span style=color:#a5d6ff>&#34;Search&#34;</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>          </span><span style=color:#7ee787>url</span>:<span style=color:#6e7681> </span><span style=color:#a5d6ff>&#34;/search&#34;</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>          </span><span style=color:#7ee787>weight</span>:<span style=color:#6e7681> </span><span style=color:#a5d6ff>1</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>        </span>- <span style=color:#7ee787>identifier</span>:<span style=color:#6e7681> </span><span style=color:#a5d6ff>&#34;archives&#34;</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>          </span><span style=color:#7ee787>name</span>:<span style=color:#6e7681> </span><span style=color:#a5d6ff>&#34;Archives&#34;</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>          </span><span style=color:#7ee787>url</span>:<span style=color:#6e7681> </span><span style=color:#a5d6ff>&#34;/archives&#34;</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>          </span><span style=color:#7ee787>weight</span>:<span style=color:#6e7681> </span><span style=color:#a5d6ff>2</span><span style=color:#6e7681>
-</span></span></span></code></pre></td></tr></table></div></div><h3 id=search>Search<a hidden class=anchor aria-hidden=true href=#search>#</a></h3><p>To enable search functionality, configure the following in <code>hugo.yaml</code>:</p><div class=highlight><div style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">5
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#7ee787>outputs</span>:<span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>  </span><span style=color:#7ee787>home</span>:<span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span>- <span style=color:#a5d6ff>HTML</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span>- <span style=color:#a5d6ff>RSS</span><span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>    </span>- <span style=color:#a5d6ff>JSON</span><span style=color:#6e7681> </span><span style=color:#8b949e;font-style:italic># JSON is key for enabling search</span><span style=color:#6e7681>
-</span></span></span></code></pre></td></tr></table></div></div><h3 id=fonts>Fonts<a hidden class=anchor aria-hidden=true href=#fonts>#</a></h3><p>For example, to add JetBrains Mono font, configure as follows.</p><p>Create <code>/themes/PaperMod/assets/css/extended/fonts.css</code>:</p><div class=highlight><div style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 8
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 9
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">10
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">11
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">12
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">13
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">14
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">15
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">16
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">17
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">18
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">19
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">20
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=display:flex><span><span style=color:#8b949e;font-style:italic>/* Import online CDN font */</span>
-</span></span><span style=display:flex><span>@<span style=color:#ff7b72>import</span> <span style=color:#7ee787>url</span><span style=color:#ff7b72;font-weight:700>(</span><span style=color:#a5d6ff>&#39;https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap&#39;</span><span style=color:#ff7b72;font-weight:700>)</span>;
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>:<span style=color:#d2a8ff;font-weight:700>root</span> {
-</span></span><span style=display:flex><span>  <span style=color:#79c0ff>--mono-font-family</span>: <span style=color:#a5d6ff>&#34;JetBrains Mono&#34;</span>, Consolas, Monaco, <span style=color:#79c0ff>monospace</span>;
-</span></span><span style=display:flex><span>  <span style=color:#79c0ff>--cjk-font-family</span>: <span style=color:#ff7b72;font-weight:700>-</span>apple-system, BlinkMacSystemFont, <span style=color:#a5d6ff>&#34;PingFang SC&#34;</span>, <span style=color:#a5d6ff>&#34;Microsoft YaHei&#34;</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#7ee787>body</span> {
-</span></span><span style=display:flex><span>  <span style=color:#8b949e;font-style:italic>/* Prefer using monospace font */</span>
-</span></span><span style=display:flex><span>  <span style=color:#8b949e;font-style:italic>/*font-family: var(--mono-font-family), var(--cjk-font-family); */</span>
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>  <span style=color:#8b949e;font-style:italic>/* Only use basic font */</span>
-</span></span><span style=display:flex><span>  <span style=color:#ff7b72>font-family</span>: <span style=color:#d2a8ff;font-weight:700>var</span>(<span style=color:#ff7b72;font-weight:700>--</span>cjk<span style=color:#ff7b72;font-weight:700>-</span>font<span style=color:#ff7b72;font-weight:700>-</span>family);
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#8b949e;font-style:italic>/* Code blocks and inline code use monospace font */</span>
-</span></span><span style=display:flex><span><span style=color:#7ee787>code</span><span style=color:#ff7b72;font-weight:700>,</span> <span style=color:#7ee787>pre</span> {
-</span></span><span style=display:flex><span>  <span style=color:#ff7b72>font-family</span>: <span style=color:#d2a8ff;font-weight:700>var</span>(<span style=color:#ff7b72;font-weight:700>--</span>mono<span style=color:#ff7b72;font-weight:700>-</span>font<span style=color:#ff7b72;font-weight:700>-</span>family);
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></td></tr></table></div></div><h3 id=code-block-background-color>Code Block Background Color<a hidden class=anchor aria-hidden=true href=#code-block-background-color>#</a></h3><p>The default code block background is very dark. Here&rsquo;s how to modify it.</p><p>Find the <code>--code-block-bg</code> variable in <code>/themes/PaperMod/assets/css/common/post-single.css</code>:</p><div class=highlight><div style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 8
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 9
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">10
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=display:flex><span>.<span style=color:#f0883e;font-weight:700>post-content</span> <span style=color:#7ee787>pre</span> <span style=color:#7ee787>code</span> {
-</span></span><span style=display:flex><span>    <span style=color:#ff7b72>display</span>: <span style=color:#ff7b72>grid</span>;
-</span></span><span style=display:flex><span>    <span style=color:#ff7b72>margin</span>: <span style=color:#79c0ff>auto</span> <span style=color:#a5d6ff>0</span>;
-</span></span><span style=display:flex><span>    <span style=color:#ff7b72>padding</span>: <span style=color:#a5d6ff>10</span><span style=color:#ff7b72>px</span>;
-</span></span><span style=display:flex><span>    <span style=color:#ff7b72>color</span>: rgb(<span style=color:#a5d6ff>213</span>, <span style=color:#a5d6ff>213</span>, <span style=color:#a5d6ff>214</span>);
-</span></span><span style=display:flex><span>    <span style=color:#ff7b72>background</span>: <span style=color:#d2a8ff;font-weight:700>var</span>(<span style=color:#ff7b72;font-weight:700>--</span>code<span style=color:#ff7b72;font-weight:700>-</span><span style=color:#79c0ff>block</span><span style=color:#ff7b72;font-weight:700>-</span>bg) <span style=color:#8b949e;font-weight:700;font-style:italic>!important</span>;
-</span></span><span style=display:flex><span>    <span style=color:#ff7b72>border-radius</span>: <span style=color:#d2a8ff;font-weight:700>var</span>(<span style=color:#ff7b72;font-weight:700>--</span>radius);
-</span></span><span style=display:flex><span>    <span style=color:#ff7b72>overflow-x</span>: <span style=color:#79c0ff>auto</span>;
-</span></span><span style=display:flex><span>    <span style=color:#ff7b72>word-break</span>: break-all;
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></td></tr></table></div></div><p>In <code>/themes/PaperMod/assets/css/core/theme-vars.css</code>, modify both occurrences:</p><div class=highlight><div style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 8
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679"> 9
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">10
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">11
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=display:flex><span>:<span style=color:#d2a8ff;font-weight:700>root</span> {
-</span></span><span style=display:flex><span>    <span style=color:#f85149>...</span>
-</span></span><span style=display:flex><span>    <span style=color:#79c0ff>--code-block-bg</span>: rgb(<span style=color:#a5d6ff>43</span>, <span style=color:#a5d6ff>43</span>, <span style=color:#a5d6ff>43</span>);
-</span></span><span style=display:flex><span>    <span style=color:#f85149>...</span>
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span>.<span style=color:#f0883e;font-weight:700>dark</span> {
-</span></span><span style=display:flex><span>    <span style=color:#f85149>...</span>
-</span></span><span style=display:flex><span>    <span style=color:#79c0ff>--code-block-bg</span>: rgb(<span style=color:#a5d6ff>43</span>, <span style=color:#a5d6ff>43</span>, <span style=color:#a5d6ff>43</span>);
-</span></span><span style=display:flex><span>    <span style=color:#f85149>...</span>
-</span></span><span style=display:flex><span>}
-</span></span></code></pre></td></tr></table></div></div><h3 id=comments>Comments<a hidden class=anchor aria-hidden=true href=#comments>#</a></h3><p>I use Giscus, which integrates with GitHub Discussions.</p><p>Requirements:</p><ul><li>Public repository</li><li>Installed giscus app</li><li>Enabled Discussions feature</li></ul><p>Visit <a href=https://giscus.app>Giscus website</a> for configuration.</p><p>Create <code>/layouts/partials/comments.html</code> with the provided script tag and enable comments in <code>hugo.yaml</code>:</p><div class=highlight><div style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">2
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#7ee787>params</span>:<span style=color:#6e7681>
-</span></span></span><span style=display:flex><span><span style=color:#6e7681>  </span><span style=color:#7ee787>comments</span>:<span style=color:#6e7681> </span><span style=color:#79c0ff>true</span><span style=color:#6e7681>
-</span></span></span></code></pre></td></tr></table></div></div><h3 id=deployment>Deployment<a hidden class=anchor aria-hidden=true href=#deployment>#</a></h3><p>After <code>hugo -D</code>, Hugo builds the static blog in <code>/public</code>. I usually clear this directory before building.</p><p>To deploy only the static blog, use this root directory script:</p><div class=highlight><div style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#737679">8
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre tabindex=0 style=color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>hugo -D
-</span></span><span style=display:flex><span>cd public
-</span></span><span style=display:flex><span>git init
-</span></span><span style=display:flex><span>git remote add origin git@github.com:&lt;user&gt;/&lt;repo&gt;.git
-</span></span><span style=display:flex><span>git pull origin main
-</span></span><span style=display:flex><span>git add -A
-</span></span><span style=display:flex><span>git commit -m <span style=color:#a5d6ff>&#34;push&#34;</span>
-</span></span><span style=display:flex><span>git push -f origin main
-</span></span></code></pre></td></tr></table></div></div><p>Combined with Vercel CI/CD, one script handles all deployment needs.</p></div><footer class=post-footer><ul class=post-tags><li><a href=https://www.zzzhizhi.top/en/tags/blog/>Blog</a></li><li><a href=https://www.zzzhizhi.top/en/tags/experience/>Experience</a></li></ul></footer><script src=https://giscus.app/client.js data-repo=zzzhizhiw/zzzhizhi-blog data-repo-id=R_kgDONlp_9Q data-category=Announcements data-category-id=DIC_kwDONlp_9c4Cltim data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=preferred_color_scheme data-lang=en crossorigin=anonymous async></script></article></main><footer class=footer><span>&copy; 2025 <a href=https://www.zzzhizhi.top/en/>zzzhizhi | 致之</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>Hugo Blog Setup Experiences Summary | zzzhizhi | 致之</title>
+<meta name=keywords content="Blog,Experience"><meta name=description content="Summarizes the process of building a Hugo blog using PaperMod theme, including configuration and debugging tips."><meta name=author content="zzzhizhi"><link rel=canonical href=/en/posts/hugo-blog-setup-tips/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.css rel="preload stylesheet" as=style><link rel=icon href=/favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.ico><link rel=apple-touch-icon href=/apple-touch-icon.jpg><link rel=mask-icon href=/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=zh-cn href=/zh-cn/posts/hugo-blog-setup-tips/><link rel=alternate hreflang=en href=/en/posts/hugo-blog-setup-tips/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(43, 43, 43);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:url" content="/en/posts/hugo-blog-setup-tips/"><meta property="og:site_name" content="zzzhizhi | 致之"><meta property="og:title" content="Hugo Blog Setup Experiences Summary"><meta property="og:description" content="Summarizes the process of building a Hugo blog using PaperMod theme, including configuration and debugging tips."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-01-05T00:00:00+00:00"><meta property="article:modified_time" content="2025-01-05T14:35:53+08:00"><meta property="article:tag" content="Blog"><meta property="article:tag" content="Experience"><meta property="og:image" content="/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="Hugo Blog Setup Experiences Summary"><meta name=twitter:description content="Summarizes the process of building a Hugo blog using PaperMod theme, including configuration and debugging tips."><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"/en/posts/"},{"@type":"ListItem","position":2,"name":"Hugo Blog Setup Experiences Summary","item":"/en/posts/hugo-blog-setup-tips/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Hugo Blog Setup Experiences Summary","name":"Hugo Blog Setup Experiences Summary","description":"Summarizes the process of building a Hugo blog using PaperMod theme, including configuration and debugging tips.","keywords":["Blog","Experience"],"articleBody":"I am using the PaperMod theme, and this article uses it as an example.\nTable of Contents If you want to display a table of contents on the article page, note the following configuration:\n1 2 3 params: showToc: true # Show table of contents globally tocopen: true # Expand the table of contents globally (the table is collapsed by default) Multilingual It’s easy to make mistakes here. If you, like me, want a multilingual blog, pay attention to:\n1 2 defaultContentLanguage: zh-cn defaultContentLanguageInSubdir: true defaultContentLanguage: zh-cn\nSets the default language to Simplified Chinese Affects the URL structure generated by Hugo Determines the language identifier for default content It is recommended not to modify this configuration.\ndefaultContentLanguageInSubdir: true\nControls whether default language content is placed in a subdirectory true: default path is /zh-cn/posts/ false: default path is /posts/ Example:\n1 2 3 4 5 6 7 8 9 10 11 12 # When defaultContentLanguageInSubdir: true public/ ├── zh-cn/ │ └── posts/ └── en/ └── posts/ # When defaultContentLanguageInSubdir: false public/ ├── posts/ └── en/ └── posts/ You need to configure the multilingual content directory:\n1 2 3 4 5 6 7 8 9 languages: zh-cn: languageName: \"简体中文\" contentDir: \"/content/zh-cn\" # /content/ # ... other multilingual configurations ... en: languageName: \"English\" contentDir: \"/content/en\" # ... Under multilingual configuration, the valid paths for search.md and archive.md are:\n1 2 3 4 5 6 7 8 9 content/ ├── zh-cn/ │ ├── posts/ │ ├── search.zh-cn.md # search..md │ └── archive.md └── en/ ├── posts/ ├── search.en.md └── archive.md The URLs of both in hugo.yaml can remain generally configured:\n1 2 3 4 5 6 7 8 9 10 11 12 languages: zh-cn: menu: main: - identifier: \"search\" name: \"搜索\" url: \"/search\" weight: 1 - identifier: \"archives\" name: \"归档\" url: \"/archives\" weight: 2 Search To support search functionality, the following configuration must be done in hugo.yaml:\n1 2 3 4 5 outputs: home: - HTML - RSS - JSON # JSON is the key to enabling search Fonts I wanted to use Ubuntu Mono for English, HarmonyOS Sans SC for Chinese, and JetBrains Mono for code, so I added the following configuration.\nCreate /themes/PaperMod/assets/css/extended/fonts.css:\n1 2 3 4 5 6 7 8 9 10 11 @import url('https://cdn.jsdelivr.net/npm/ubuntu-mono/css/ubuntu-mono.min.css?display=swap'); @import url('https://cdn.jsdelivr.net/npm/harmonyos-sans-font/css/harmonyos-sans.min.css?display=swap'); @import url('https://cdn.jsdelivr.net/npm/jetbrains-mono/css/jetbrains-mono.min.css?display=swap'); body { font-family: \"Ubuntu Mono\", \"HarmonyOS Sans SC\", sans-serif; } code, pre { font-family: \"JetBrains Mono\", monospace; } Code Block Background Color By default, the brightness of the code block background is very low (quite dark). I modified it slightly.\nIn /themes/PaperMod/assets/css/common/post-single.css around line 206, you can see the variable --code-block-bg controlling the code block background color:\n1 2 3 4 5 6 7 8 9 10 .post-content pre code { display: grid; margin: auto 0; padding: 10px; color: rgb(213, 213, 214); background: var(--code-block-bg) !important; border-radius: var(--radius); overflow-x: auto; word-break: break-all; } Search globally and find /themes/PaperMod/assets/css/core/theme-vars.css, where this variable is declared in two places:\n1 2 3 4 5 6 7 8 9 10 11 :root { ... --code-block-bg: rgb(43, 43, 43); ... } .dark { ... --code-block-bg: rgb(43, 43, 43); ... } Set both to rgb(43, 43, 43).\nComments I use Giscus, which leverages GitHub Discussions as a commenting system.\nMake sure:\nThe blog repository is public, or visitors can’t view the Discussions. The giscus app is installed, or visitors can’t comment or respond. Discussions is enabled in the repository. Then, go to the Giscus site and configure as required.\nAfter configuration, under “Enable giscus,” content like the following will appear:\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 \u003cscript src=\"https://giscus.app/client.js\" data-repo=\"[enter repository here]\" data-repo-id=\"[enter repository ID here]\" data-category=\"[enter category name here]\" data-category-id=\"[enter category ID here]\" data-mapping=\"pathname\" data-strict=\"0\" data-reactions-enabled=\"1\" data-emit-metadata=\"0\" data-input-position=\"bottom\" data-theme=\"preferred_color_scheme\" data-lang=\"zh-CN\" crossorigin=\"anonymous\" async\u003e \u003c/script\u003e Create /layouts/partials/comments.html and copy the ","wordCount":"1419","inLanguage":"en","image":"/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E","datePublished":"2025-01-05T00:00:00Z","dateModified":"2025-01-05T14:35:53+08:00","author":{"@type":"Person","name":"zzzhizhi"},"mainEntityOfPage":{"@type":"WebPage","@id":"/en/posts/hugo-blog-setup-tips/"},"publisher":{"@type":"Organization","name":"zzzhizhi | 致之","logo":{"@type":"ImageObject","url":"/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=/en/ accesskey=h title="Home (Alt + H)"><img src=/apple-touch-icon.jpg alt aria-label=logo height=35>Home</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button><ul class=lang-switch><li>|</li><li><a href=/zh-cn/ title=简体中文 aria-label=简体中文>Zh-Cn</a></li></ul></div></div><ul id=menu><li><a href=en/search title="Search (Alt + /)" accesskey=/><span>Search</span></a></li><li><a href=en/archives title=Archives><span>Archives</span></a></li><li><a href=en/categories title=Categories><span>Categories</span></a></li><li><a href=en/tags title=Tags><span>Tags</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=/en/>Home</a>&nbsp;»&nbsp;<a href=/en/posts/>Posts</a></div><h1 class="post-title entry-hint-parent">Hugo Blog Setup Experiences Summary</h1><div class=post-description>Summarizes the process of building a Hugo blog using PaperMod theme, including configuration and debugging tips.</div><div class=post-meta><span title='2025-01-05 00:00:00 +0000 UTC'>2025-01-05</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;1419 words&nbsp;·&nbsp;zzzhizhi&nbsp;|&nbsp;Translations:<ul class=i18n_list><li><a href=/zh-cn/posts/hugo-blog-setup-tips/>Zh-Cn</a></li></ul>&nbsp;|&nbsp;<a href=https://github.com/zzzhizhiw/zzzhizhi-blog/posts/hugo-blog-setup-tips.md rel="noopener noreferrer" target=_blank>Edit</a></div></header><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><nav id=TableOfContents><ul><li><ul><li><ul><li><a href=#table-of-contents>Table of Contents</a></li><li><a href=#multilingual>Multilingual</a></li><li><a href=#search>Search</a></li><li><a href=#fonts>Fonts</a></li><li><a href=#code-block-background-color>Code Block Background Color</a></li><li><a href=#comments>Comments</a></li><li><a href=#deployment>Deployment</a></li><li><a href=#hugoyaml-example><code>hugo.yaml</code> Example</a></li></ul></li></ul></li></ul></nav></div></details></div><div class=post-content><p>I am using the PaperMod theme, and this article uses it as an example.</p><h3 id=table-of-contents>Table of Contents<a hidden class=anchor aria-hidden=true href=#table-of-contents>#</a></h3><p>If you want to display a table of contents on the article page, note the following configuration:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>params</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>showToc</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w> </span><span class=c># Show table of contents globally</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>tocopen</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w> </span><span class=c># Expand the table of contents globally (the table is collapsed by default)</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=multilingual>Multilingual<a hidden class=anchor aria-hidden=true href=#multilingual>#</a></h3><p>It’s easy to make mistakes here. If you, like me, want a multilingual blog, pay attention to:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>defaultContentLanguage</span><span class=p>:</span><span class=w> </span><span class=l>zh-cn</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>defaultContentLanguageInSubdir</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p><code>defaultContentLanguage: zh-cn</code></p><ul><li>Sets the default language to Simplified Chinese</li><li>Affects the URL structure generated by Hugo</li><li>Determines the language identifier for default content</li></ul><p>It is recommended not to modify this configuration.</p><p><code>defaultContentLanguageInSubdir: true</code></p><ul><li>Controls whether default language content is placed in a subdirectory</li><li>true: default path is /zh-cn/posts/</li><li>false: default path is /posts/</li></ul><p><strong>Example:</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=c># When defaultContentLanguageInSubdir: true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=l>public/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=l>├── zh-cn/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=l>│   └── posts/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=l>└── en/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=l>└── posts/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=c># When defaultContentLanguageInSubdir: false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=l>public/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=l>├── posts/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=l>└── en/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=l>└── posts/</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>You need to configure the multilingual content directory:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>languages</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>zh-cn</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>languageName</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;简体中文&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>contentDir</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/content/zh-cn&#34;</span><span class=w> </span><span class=c># /content/&lt;lang&gt;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c># ... other multilingual configurations ...</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>en</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>languageName</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;English&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>contentDir</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/content/en&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c># ...</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>Under multilingual configuration, the valid paths for <code>search.md</code> and <code>archive.md</code> are:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=l>content/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=l>├── zh-cn/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=l>│   ├── posts/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=l>│   ├── search.zh-cn.md</span><span class=w> </span><span class=c># search.&lt;lang&gt;.md</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=l>│   └── archive.md</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=l>└── en/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=l>├── posts/</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=l>├── search.en.md</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=l>└── archive.md</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>The URLs of both in <code>hugo.yaml</code> can remain generally configured:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>languages</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>zh-cn</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>menu</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>main</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;search&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;搜索&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/search&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;archives&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;归档&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/archives&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>2</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=search>Search<a hidden class=anchor aria-hidden=true href=#search>#</a></h3><p>To support search functionality, the following configuration must be done in <code>hugo.yaml</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>outputs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>home</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>HTML</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>RSS</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>JSON</span><span class=w> </span><span class=c># JSON is the key to enabling search</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=fonts>Fonts<a hidden class=anchor aria-hidden=true href=#fonts>#</a></h3><p>I wanted to use Ubuntu Mono for English, HarmonyOS Sans SC for Chinese, and JetBrains Mono for code, so I added the following configuration.</p><p>Create <code>/themes/PaperMod/assets/css/extended/fonts.css</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=p>@</span><span class=k>import</span> <span class=nt>url</span><span class=o>(</span><span class=s1>&#39;https://cdn.jsdelivr.net/npm/ubuntu-mono/css/ubuntu-mono.min.css?display=swap&#39;</span><span class=o>)</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>@</span><span class=k>import</span> <span class=nt>url</span><span class=o>(</span><span class=s1>&#39;https://cdn.jsdelivr.net/npm/harmonyos-sans-font/css/harmonyos-sans.min.css?display=swap&#39;</span><span class=o>)</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>@</span><span class=k>import</span> <span class=nt>url</span><span class=o>(</span><span class=s1>&#39;https://cdn.jsdelivr.net/npm/jetbrains-mono/css/jetbrains-mono.min.css?display=swap&#39;</span><span class=o>)</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nt>body</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>font-family</span><span class=p>:</span> <span class=s2>&#34;Ubuntu Mono&#34;</span><span class=p>,</span> <span class=s2>&#34;HarmonyOS Sans SC&#34;</span><span class=p>,</span> <span class=kc>sans-serif</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nt>code</span><span class=o>,</span> <span class=nt>pre</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>font-family</span><span class=p>:</span> <span class=s2>&#34;JetBrains Mono&#34;</span><span class=p>,</span> <span class=kc>monospace</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=code-block-background-color>Code Block Background Color<a hidden class=anchor aria-hidden=true href=#code-block-background-color>#</a></h3><p>By default, the brightness of the code block background is very low (quite dark). I modified it slightly.</p><p>In <code>/themes/PaperMod/assets/css/common/post-single.css</code> around line 206, you can see the variable <code>--code-block-bg</code> controlling the code block background color:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=p>.</span><span class=nc>post-content</span> <span class=nt>pre</span> <span class=nt>code</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>display</span><span class=p>:</span> <span class=k>grid</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>margin</span><span class=p>:</span> <span class=kc>auto</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>padding</span><span class=p>:</span> <span class=mi>10</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>color</span><span class=p>:</span> <span class=nb>rgb</span><span class=p>(</span><span class=mi>213</span><span class=p>,</span> <span class=mi>213</span><span class=p>,</span> <span class=mi>214</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>background</span><span class=p>:</span> <span class=nf>var</span><span class=p>(</span><span class=o>--</span><span class=n>code</span><span class=o>-</span><span class=kc>block</span><span class=o>-</span><span class=n>bg</span><span class=p>)</span> <span class=cp>!important</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>border-radius</span><span class=p>:</span> <span class=nf>var</span><span class=p>(</span><span class=o>--</span><span class=n>radius</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>overflow-x</span><span class=p>:</span> <span class=kc>auto</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>word-break</span><span class=p>:</span> <span class=n>break-all</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Search globally and find <code>/themes/PaperMod/assets/css/core/theme-vars.css</code>, where this variable is declared in two places:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=p>:</span><span class=nd>root</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=err>...</span>
+</span></span><span class=line><span class=cl>    <span class=nv>--code-block-bg</span><span class=p>:</span> <span class=nb>rgb</span><span class=p>(</span><span class=mi>43</span><span class=p>,</span> <span class=mi>43</span><span class=p>,</span> <span class=mi>43</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=err>...</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>dark</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=err>...</span>
+</span></span><span class=line><span class=cl>    <span class=nv>--code-block-bg</span><span class=p>:</span> <span class=nb>rgb</span><span class=p>(</span><span class=mi>43</span><span class=p>,</span> <span class=mi>43</span><span class=p>,</span> <span class=mi>43</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=err>...</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>Set both to <code>rgb(43, 43, 43)</code>.</p><h3 id=comments>Comments<a hidden class=anchor aria-hidden=true href=#comments>#</a></h3><p>I use Giscus, which leverages <a href=https://docs.github.com/en/discussions>GitHub Discussions</a> as a commenting system.</p><p>Make sure:</p><ul><li>The blog repository is public, or visitors can’t view the Discussions.</li><li>The <a href=https://github.com/apps/giscus>giscus</a> app is installed, or visitors can’t comment or respond.</li><li>Discussions is <a href=https://docs.github.com/github/administering-a-repository/managing-repository-settings/enabling-or-disabling-github-discussions-for-a-repository>enabled in the repository</a>.</li></ul><p>Then, go to the <a href=https://giscus.app/zh-CN>Giscus site</a> and configure as required.</p><p>After configuration, under “Enable giscus,” content like the following will appear:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>script</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://giscus.app/client.js&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>data-repo</span><span class=o>=</span><span class=s>&#34;[enter repository here]&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>data-repo-id</span><span class=o>=</span><span class=s>&#34;[enter repository ID here]&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>data-category</span><span class=o>=</span><span class=s>&#34;[enter category name here]&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>data-category-id</span><span class=o>=</span><span class=s>&#34;[enter category ID here]&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>data-mapping</span><span class=o>=</span><span class=s>&#34;pathname&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>data-strict</span><span class=o>=</span><span class=s>&#34;0&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>data-reactions-enabled</span><span class=o>=</span><span class=s>&#34;1&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>data-emit-metadata</span><span class=o>=</span><span class=s>&#34;0&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>data-input-position</span><span class=o>=</span><span class=s>&#34;bottom&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>data-theme</span><span class=o>=</span><span class=s>&#34;preferred_color_scheme&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>data-lang</span><span class=o>=</span><span class=s>&#34;zh-CN&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>crossorigin</span><span class=o>=</span><span class=s>&#34;anonymous&#34;</span>
+</span></span><span class=line><span class=cl>        <span class=na>async</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
+</span></span></code></pre></td></tr></table></div></div><p>Create <code>/layouts/partials/comments.html</code> and copy the &lt;script> tag.</p><p>Ensure <code>hugo.yaml</code> has comments enabled:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>params</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>comments</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=deployment>Deployment<a hidden class=anchor aria-hidden=true href=#deployment>#</a></h3><p>After running <code>hugo -D</code>, Hugo builds the static blog into <code>/public</code>. Typically, delete <code>/public</code> before each build to avoid issues.</p><p>I only want to deploy the static blog, not the entire Hugo framework, so I wrote a Shell script:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>@echo off
+</span></span><span class=line><span class=cl>hugo -D
+</span></span><span class=line><span class=cl><span class=nb>cd</span> public
+</span></span><span class=line><span class=cl>git init
+</span></span><span class=line><span class=cl>git remote add origin git@github.com:zzzhizhiw/zzzhizhi-blog.git
+</span></span><span class=line><span class=cl>git checkout -b main
+</span></span><span class=line><span class=cl>git fetch
+</span></span><span class=line><span class=cl>git add -A
+</span></span><span class=line><span class=cl>git commit -m <span class=s2>&#34;temp&#34;</span>
+</span></span><span class=line><span class=cl>git reset --soft origin/main
+</span></span><span class=line><span class=cl>git commit -m <span class=s2>&#34;update %date%&#34;</span>
+</span></span><span class=line><span class=cl>git push
+</span></span><span class=line><span class=cl><span class=nb>cd</span> ..
+</span></span></code></pre></td></tr></table></div></div><p>With Cloudflare Pages CI/CD, a single script can push updates with one command.</p><p>Do not configure <code>baseURL</code> in <code>hugo.yaml</code>; otherwise, all unique preview URLs will be redirected to <code>baseURL</code>.</p><h3 id=hugoyaml-example><code>hugo.yaml</code> Example<a hidden class=anchor aria-hidden=true href=#hugoyaml-example>#</a></h3><p>Below is the <code>hugo.yaml</code> I use:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span><span class=lnt>210
+</span><span class=lnt>211
+</span><span class=lnt>212
+</span><span class=lnt>213
+</span><span class=lnt>214
+</span><span class=lnt>215
+</span><span class=lnt>216
+</span><span class=lnt>217
+</span><span class=lnt>218
+</span><span class=lnt>219
+</span><span class=lnt>220
+</span><span class=lnt>221
+</span><span class=lnt>222
+</span><span class=lnt>223
+</span><span class=lnt>224
+</span><span class=lnt>225
+</span><span class=lnt>226
+</span><span class=lnt>227
+</span><span class=lnt>228
+</span><span class=lnt>229
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>languageCode</span><span class=p>:</span><span class=w> </span><span class=l>zh-cn</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>theme</span><span class=p>:</span><span class=w> </span><span class=l>PaperMod</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>pagination</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>paperSize</span><span class=p>:</span><span class=w> </span><span class=m>5</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>enableRobotsTXT</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>buildDrafts</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>buildFuture</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>buildExpired</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>enableEmoji</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>enableGitInfo</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>minify</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>disableXML</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>minifyOutput</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>params</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>env</span><span class=p>:</span><span class=w> </span><span class=l>production</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>keywords</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=l>致之, zzzhizhi, Blog]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>images</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;&lt;link or path of image for opengraph, twitter-cards&gt;&#34;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>DateFormat</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;2006-01-02&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>defaultTheme</span><span class=p>:</span><span class=w> </span><span class=l>auto</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>disableThemeToggle</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ShowReadingTime</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ShowShareButtons</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ShowPostNavLinks</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ShowBreadCrumbs</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ShowCodeCopyButtons</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ShowWordCount</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>ShowRssButtonInSectionTermList</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>UseHugoToc</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>disableSpecial1stPost</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>disableScrollToTop</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>comments</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>hidemeta</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>hideSummary</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>showToc</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>tocopen</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>assets</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>disableHLJS</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>disableFingerprinting</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>favicon</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/favicon.ico&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>favicon16x16</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/favicon-16x16.ico&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>favicon32x32</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/favicon-32x32.ico&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>apple_touch_icon</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/apple-touch-icon.jpg&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>safari_pinned_tab</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/safari-pinned-tab.svg&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>homeInfoParams</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>Title</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Hi there \U0001F44B&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>Content</span><span class=p>:</span><span class=w> </span><span class=l>Welcome to my blog</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>analytics</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>google</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>SiteVerificationTag</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;XYZabc&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>bing</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>SiteVerificationTag</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;XYZabc&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>yandex</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>SiteVerificationTag</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;XYZabc&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>cover</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hidden</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hiddenInList</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hiddenInSingle</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>fuseOpts</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>isCaseSensitive</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>shouldSort</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>location</span><span class=p>:</span><span class=w> </span><span class=m>0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>distance</span><span class=p>:</span><span class=w> </span><span class=m>1000</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>threshold</span><span class=p>:</span><span class=w> </span><span class=m>0.4</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>minMatchCharLength</span><span class=p>:</span><span class=w> </span><span class=m>0</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>limit</span><span class=p>:</span><span class=w> </span><span class=m>10</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>keys</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;title&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;permalink&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;summary&#34;</span><span class=p>,</span><span class=w> </span><span class=s2>&#34;content&#34;</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>defaultContentLanguage</span><span class=p>:</span><span class=w> </span><span class=l>zh-cn</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>defaultContentLanguageInSubdir</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>languages</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>zh-cn</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>languageName</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;简体中文&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>contentDir</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/content/zh-cn&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>title</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;致之 | zzzhizhi&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;致之的博客&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>params</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>author</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;致之&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>label</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>text</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;首页&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>icon</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/apple-touch-icon.jpg&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>iconHeight</span><span class=p>:</span><span class=w> </span><span class=m>35</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>profileMode</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>title</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;致之&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>subtitle</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;写代码是热爱，写到世界充满爱！&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>imageUrl</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/apple-touch-icon.jpg&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>buttons</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;博客&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;posts&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;标签&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;tags&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>homeInfoParams</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>Title</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;你好 👋&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>Content</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;欢迎来到我的博客&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>socialIcons</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>github</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;https://github.com/zzzhizhiw&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>bilibili</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;https://space.bilibili.com/437297385&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>email</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;mailto:mail@zzzhizhi.top&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>rss</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/zh-cn/index.xml&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>editPost</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>URL</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;https://github.com/zzzhizhiw/zzzhizhi-blog&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>Text</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;编辑&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>appendFilePath</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>menu</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>main</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;search&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;搜索&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/search&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;archives&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;归档&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/archives&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;categories&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;分类&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/categories&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>3</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;tags&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;标签&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/tags&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>4</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>en</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>languageName</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;English&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>contentDir</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/content/en&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>title</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;zzzhizhi | 致之&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>description</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;zzzhizhi&#39;s blog&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>params</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>author</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;zzzhizhi&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>label</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>text</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Home&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>icon</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/apple-touch-icon.jpg&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>iconHeight</span><span class=p>:</span><span class=w> </span><span class=m>35</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>profileMode</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>enabled</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>title</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;zzzhizhi&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>subtitle</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Coding is love, coding to the world is full of love!&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>imageUrl</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/apple-touch-icon.jpg&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>buttons</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Posts&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;posts&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Tags&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;tags&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>homeInfoParams</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>Title</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Hi there 👋&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>Content</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Welcome to my blog&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>socialIcons</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>github</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;https://github.com/zzzhizhiw&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>bilibili</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;https://space.bilibili.com/437297385&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>email</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;mailto:mail@zzzhizhi.top&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>rss</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/en/index.xml&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>editPost</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>URL</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;https://github.com/zzzhizhiw/zzzhizhi-blog&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>Text</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Edit&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>appendFilePath</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>menu</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>main</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;search&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Search&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/search&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;archives&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Archives&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/archives&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;categories&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Categories&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/categories&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>3</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span>- <span class=nt>identifier</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;tags&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Tags&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>url</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;/tags&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>weight</span><span class=p>:</span><span class=w> </span><span class=m>4</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>outputs</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>home</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>HTML</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>RSS</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span>- <span class=l>JSON</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>markup</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>highlight</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>noClasses</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>codeFences</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>guessSyntax</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>lineNos</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>lineNumbersInTable</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>style</span><span class=p>:</span><span class=w> </span><span class=l>monokai</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>goldmark</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>renderer</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>unsafe</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>tableOfContents</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>startLevel</span><span class=p>:</span><span class=w> </span><span class=m>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>endLevel</span><span class=p>:</span><span class=w> </span><span class=m>3</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>ordered</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div></div><footer class=post-footer><ul class=post-tags><li><a href=/en/tags/blog/>Blog</a></li><li><a href=/en/tags/experience/>Experience</a></li></ul></footer><script src=https://giscus.app/client.js data-repo=zzzhizhiw/zzzhizhi-blog data-repo-id=R_kgDONlp_9Q data-category=Announcements data-category-id=DIC_kwDONlp_9c4Cltim data-mapping=pathname data-strict=0 data-reactions-enabled=1 data-emit-metadata=0 data-input-position=top data-theme=preferred_color_scheme data-lang=en crossorigin=anonymous async></script></article></main><footer class=footer><span>&copy; 2025 <a href=/en/>zzzhizhi | 致之</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
 </a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>

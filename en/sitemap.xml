@@ -2,114 +2,114 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.zzzhizhi.top/en/tags/blog/</loc>
-    <lastmod>2025-01-05T11:18:40+08:00</lastmod>
+    <loc>/en/tags/blog/</loc>
+    <lastmod>2025-01-05T14:35:53+08:00</lastmod>
   </url><url>
-    <loc>https://www.zzzhizhi.top/en/categories/</loc>
-    <lastmod>2025-01-05T11:18:40+08:00</lastmod>
+    <loc>/en/categories/</loc>
+    <lastmod>2025-01-05T14:35:53+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.zzzhizhi.top/zh-cn/categories/"
+                href="/zh-cn/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://www.zzzhizhi.top/en/categories/"
+                href="/en/categories/"
                 />
   </url><url>
-    <loc>https://www.zzzhizhi.top/en/tags/experience/</loc>
-    <lastmod>2025-01-05T11:18:40+08:00</lastmod>
+    <loc>/en/tags/experience/</loc>
+    <lastmod>2025-01-05T14:35:53+08:00</lastmod>
   </url><url>
-    <loc>https://www.zzzhizhi.top/en/posts/hugo-blog-setup-tips/</loc>
-    <lastmod>2025-01-05T11:18:40+08:00</lastmod>
+    <loc>/en/posts/hugo-blog-setup-tips/</loc>
+    <lastmod>2025-01-05T14:35:53+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.zzzhizhi.top/zh-cn/posts/hugo-blog-setup-tips/"
+                href="/zh-cn/posts/hugo-blog-setup-tips/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://www.zzzhizhi.top/en/posts/hugo-blog-setup-tips/"
+                href="/en/posts/hugo-blog-setup-tips/"
                 />
   </url><url>
-    <loc>https://www.zzzhizhi.top/en/posts/</loc>
-    <lastmod>2025-01-05T11:18:40+08:00</lastmod>
+    <loc>/en/posts/</loc>
+    <lastmod>2025-01-05T14:35:53+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.zzzhizhi.top/zh-cn/posts/"
+                href="/zh-cn/posts/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://www.zzzhizhi.top/en/posts/"
+                href="/en/posts/"
                 />
   </url><url>
-    <loc>https://www.zzzhizhi.top/en/tags/</loc>
-    <lastmod>2025-01-05T11:18:40+08:00</lastmod>
+    <loc>/en/tags/</loc>
+    <lastmod>2025-01-05T14:35:53+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.zzzhizhi.top/zh-cn/tags/"
+                href="/zh-cn/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://www.zzzhizhi.top/en/tags/"
+                href="/en/tags/"
                 />
   </url><url>
-    <loc>https://www.zzzhizhi.top/en/categories/web/</loc>
-    <lastmod>2025-01-05T11:18:40+08:00</lastmod>
+    <loc>/en/categories/web/</loc>
+    <lastmod>2025-01-05T14:35:53+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.zzzhizhi.top/zh-cn/categories/web/"
+                href="/zh-cn/categories/web/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://www.zzzhizhi.top/en/categories/web/"
+                href="/en/categories/web/"
                 />
   </url><url>
-    <loc>https://www.zzzhizhi.top/en/</loc>
-    <lastmod>2025-01-05T11:18:40+08:00</lastmod>
+    <loc>/en/</loc>
+    <lastmod>2025-01-05T14:35:53+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.zzzhizhi.top/zh-cn/"
+                href="/zh-cn/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://www.zzzhizhi.top/en/"
+                href="/en/"
                 />
   </url><url>
-    <loc>https://www.zzzhizhi.top/en/archives/</loc>
+    <loc>/en/archives/</loc>
     <lastmod>2025-01-04T18:14:05+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.zzzhizhi.top/zh-cn/archives/"
+                href="/zh-cn/archives/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://www.zzzhizhi.top/en/archives/"
+                href="/en/archives/"
                 />
   </url><url>
-    <loc>https://www.zzzhizhi.top/en/search/</loc>
+    <loc>/en/search/</loc>
     <lastmod>2025-01-04T18:06:03+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://www.zzzhizhi.top/zh-cn/search/"
+                href="/zh-cn/search/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://www.zzzhizhi.top/en/search/"
+                href="/en/search/"
                 />
   </url>
 </urlset>
