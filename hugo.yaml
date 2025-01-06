@@ -80,7 +80,7 @@ defaultContentLanguage: zh
 defaultContentLanguageInSubdir: true
 
 languages:
-  中文:
+  zh:
     languageName: "中文"
     contentDir: "content/zh"
     weight: 1
@@ -142,8 +142,8 @@ languages:
           url: "tags"
           weight: 4
 
-  English:
-    languageName: "en"
+  en:
+    languageName: "English"
     contentDir: "content/en"
     weight: 2
     title: "zzzhizhi | 致之"
