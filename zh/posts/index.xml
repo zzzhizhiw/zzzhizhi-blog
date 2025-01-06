@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on 致之 | zzzhizhi</title><link>/zh/posts/</link><description>Recent content in Posts on 致之 | zzzhizhi</description><image><title>致之 | zzzhizhi</title><url>/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url><link>/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link></image><generator>Hugo -- 0.140.2</generator><language>zh</language><lastBuildDate>Mon, 06 Jan 2025 14:55:24 +0800</lastBuildDate><atom:link href="/zh/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Hugo 博客搭建经验总结</title><link>/zh/posts/hugo-blog-setup-tips/</link><pubDate>Sun, 05 Jan 2025 00:00:00 +0000</pubDate><guid>/zh/posts/hugo-blog-setup-tips/</guid><description>总结了使用 PaperMod 主题搭建 Hugo 博客的过程，包括一些关键功能的配置和调试经验。</description><content:encoded><![CDATA[<p>我用的主题是 PaperMod，本文用它来作示例。</p>
+<h3 id="目录">目录</h3>
+<p>如果要在文章页面中显示目录，请关注以下配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">params</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">showToc</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c"># 全局显示目录</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tocopen</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c"># 全局目录展开（目录默认是折叠列表）</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="多语言">多语言</h3>
+<p>这里的配置很容易出问题。如果你像我一样喜欢搞多语言博客，请关注以下配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">defaultContentLanguage</span><span class="p">:</span><span class="w"> </span><span class="l">zh-cn</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">defaultContentLanguageInSubdir</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>defaultContentLanguage: zh-cn</code></p>
+<ul>
+<li>设置网站默认语言为简体中文</li>
+<li>影响 Hugo 生成的 URL 结构</li>
+<li>决定默认内容的语言标识</li>
+</ul>
+<p>以上配置不要修改，除非的确要修改默认语言。</p>
+<p><code>defaultContentLanguageInSubdir: true</code></p>
+<ul>
+<li>控制默认语言内容是否放在子目录中</li>
+<li>true: 默认生成路径为 /zh-cn/posts/</li>
+<li>false: 默认生成路径为 /posts/</li>
+</ul>
+<p><strong>举例：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># 当 defaultContentLanguageInSubdir: true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">public/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">├── zh-cn/         </span><span class="w"> </span><span class="c"># 默认语言(中文)内容</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">│   └── posts/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">└── en/            </span><span class="w"> </span><span class="c"># 其他语言内容</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">└── posts/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 当 defaultContentLanguageInSubdir: false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">public/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">├── posts/         </span><span class="w"> </span><span class="c"># 默认语言(中文)内容</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">└── en/            </span><span class="w"> </span><span class="c"># 其他语言内容</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">└── posts/</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>需要配置多语言 content 目录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">languages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">zh-cn</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">languageName</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;简体中文&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">contentDir</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/content/zh-cn&#34;</span><span class="w"> </span><span class="c"># /content/&lt;lang&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># ... 需要做多语言配置的配置都可以写进这里</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">en</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">languageName</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;English&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">contentDir</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/content/en&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># ...</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在多语言配置下，<code>search.md</code> 和 <code>archive.md</code> 有效路径为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="l">content/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">├── zh-cn/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">│   ├── posts/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">│   ├── search.zh-cn.md</span><span class="w"> </span><span class="c"># search.&lt;lang&gt;.md</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">│   └── archive.md</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="l">└── en/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">├── posts/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">├── search.en.md</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">└── archive.md</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>以上两者的 URL 在 <code>hugo.yaml</code> 中保持一般设置即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">languages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">zh-cn</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">menu</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">main</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;search&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;搜索&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/search&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">identifier</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;archives&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;归档&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/archives&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">weight</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="搜索">搜索</h3>
+<p>要支持搜索功能，必须在 <code>hugo.yaml</code> 中做如下配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">outputs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">home</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">HTML</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">RSS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">JSON</span><span class="w"> </span><span class="c"># JSON 是支持搜索的关键</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="字体">字体</h3>
+<p>我想要英文使用 Ubuntu Mono，中文使用 HarmonyOS Sans SC，代码使用 JetBrains Mono，于是做了如下配置。</p>
+<p>新建 <code>/themes/PaperMod/assets/css/extended/fonts.css</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">@</span><span class="k">import</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;https://cdn.jsdelivr.net/npm/ubuntu-mono/css/ubuntu-mono.min.css?display=swap&#39;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">import</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;https://cdn.jsdelivr.net/npm/harmonyos-sans-font/css/harmonyos-sans.min.css?display=swap&#39;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">@</span><span class="k">import</span> <span class="nt">url</span><span class="o">(</span><span class="s1">&#39;https://cdn.jsdelivr.net/npm/jetbrains-mono/css/jetbrains-mono.min.css?display=swap&#39;</span><span class="o">)</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">body</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">font-family</span><span class="p">:</span> <span class="s2">&#34;Ubuntu Mono&#34;</span><span class="p">,</span> <span class="s2">&#34;HarmonyOS Sans SC&#34;</span><span class="p">,</span> <span class="kc">sans-serif</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">code</span><span class="o">,</span> <span class="nt">pre</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">font-family</span><span class="p">:</span> <span class="s2">&#34;JetBrains Mono&#34;</span><span class="p">,</span> <span class="kc">monospace</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="代码块背景色">代码块背景色</h3>
+<p>默认的代码块背景色亮度很低（非常黑），我修改了一下。</p>
+<p>在 <code>/themes/PaperMod/assets/css/common/post-single.css</code> 第 206 行处，可以看到 <code>--code-block-bg</code> 变量决定了代码块背景色：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">.</span><span class="nc">post-content</span> <span class="nt">pre</span> <span class="nt">code</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">display</span><span class="p">:</span> <span class="k">grid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">margin</span><span class="p">:</span> <span class="kc">auto</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">padding</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">color</span><span class="p">:</span> <span class="nb">rgb</span><span class="p">(</span><span class="mi">213</span><span class="p">,</span> <span class="mi">213</span><span class="p">,</span> <span class="mi">214</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">background</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">code</span><span class="o">-</span><span class="kc">block</span><span class="o">-</span><span class="n">bg</span><span class="p">)</span> <span class="cp">!important</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">border-radius</span><span class="p">:</span> <span class="nf">var</span><span class="p">(</span><span class="o">--</span><span class="n">radius</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">overflow-x</span><span class="p">:</span> <span class="kc">auto</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">word-break</span><span class="p">:</span> <span class="n">break-all</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>全局搜索后发现 <code>/themes/PaperMod/assets/css/core/theme-vars.css</code> 中有两处声明了这个变量：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="p">:</span><span class="nd">root</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="err">...</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">--code-block-bg</span><span class="p">:</span> <span class="nb">rgb</span><span class="p">(</span><span class="mi">43</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">43</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="err">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">.</span><span class="nc">dark</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="err">...</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">--code-block-bg</span><span class="p">:</span> <span class="nb">rgb</span><span class="p">(</span><span class="mi">43</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">43</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="err">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>都改成 <code>rgb(43, 43, 43)</code> 就可以了。</p>
+<h3 id="评论">评论</h3>
+<p>我使用的是 Giscus，它是利用 <a href="https://docs.github.com/en/discussions">GitHub Discussions</a> 实现的评论系统。</p>
+<p>请确保：</p>
+<ul>
+<li>博客仓库是公开的，否则访客将无法查看 Discussions。</li>
+<li><a href="https://github.com/apps/giscus">giscus</a> app 已安装，否则访客将无法评论和回应。</li>
+<li>Discussions 功能已<a href="https://docs.github.com/github/administering-a-repository/managing-repository-settings/enabling-or-disabling-github-discussions-for-a-repository">在仓库中启用</a>。</li>
+</ul>
+<p>然后访问 <a href="https://giscus.app/zh-CN">Giscus 网站</a>，按要求进行配置。</p>
+<p>配置完成后，在“启用 giscus”标题下会出现形如以下内容：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://giscus.app/client.js&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-repo</span><span class="o">=</span><span class="s">&#34;[在此输入仓库]&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-repo-id</span><span class="o">=</span><span class="s">&#34;[在此输入仓库 ID]&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-category</span><span class="o">=</span><span class="s">&#34;[在此输入分类名]&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-category-id</span><span class="o">=</span><span class="s">&#34;[在此输入分类 ID]&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-mapping</span><span class="o">=</span><span class="s">&#34;pathname&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-strict</span><span class="o">=</span><span class="s">&#34;0&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-reactions-enabled</span><span class="o">=</span><span class="s">&#34;1&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-emit-metadata</span><span class="o">=</span><span class="s">&#34;0&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-input-position</span><span class="o">=</span><span class="s">&#34;bottom&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-theme</span><span class="o">=</span><span class="s">&#34;preferred_color_scheme&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">data-lang</span><span class="o">=</span><span class="s">&#34;zh-CN&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">async</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>新建 <code>/layouts/partials/comments.html</code>，将得到的 &lt;script&gt; 标签复制粘贴进去。</p>
+<p>确保 <code>hugo.yaml</code> 中启用了评论：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">params</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">comments</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="推送">推送</h3>
+<p>敲打 <code>hugo -D</code> 命令后，Hugo 会在 <code>/public</code> 目录下构建静态博客。每次构建前一般会将 <code>/public</code> 删掉来确保新构建的内容不出问题。</p>
+<p>在这种情况下，我希望只部署静态博客到仓库中，而不是整个 Hugo 框架。于是写了一个 Shell 脚本：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">@echo off
+</span></span><span class="line"><span class="cl">hugo -D
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> public
+</span></span><span class="line"><span class="cl">git init
+</span></span><span class="line"><span class="cl">git remote add origin git@github.com:zzzhizhiw/zzzhizhi-blog.git
+</span></span><span class="line"><span class="cl">git checkout -b main
+</span></span><span class="line"><span class="cl">git fetch
+</span></span><span class="line"><span class="cl">git add -A
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;temp&#34;</span>
+</span></span><span class="line"><span class="cl">git reset --soft origin/main
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;update %date%&#34;</span>
+</span></span><span class="line"><span class="cl">git push
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ..
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>因为不方便维护，我又改用同一仓库中单独创建源码分支和部署分支的方法。于是乎：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1"># 在主仓库创建 public 分支</span>
+</span></span><span class="line"><span class="cl">git checkout --orphan public
+</span></span><span class="line"><span class="cl">git reset --hard
+</span></span><span class="line"><span class="cl">git commit --allow-empty -m <span class="s2">&#34;Init public branch&#34;</span>
+</span></span><span class="line"><span class="cl">git push origin public
+</span></span><span class="line"><span class="cl">git checkout main
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 将 public 目录关联到 public 分支</span>
+</span></span><span class="line"><span class="cl">git worktree add -B public public origin/public
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成网站并推送</span>
+</span></span><span class="line"><span class="cl">hugo -D
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> public
+</span></span><span class="line"><span class="cl">git add -A
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Push %date%&#34;</span>
+</span></span><span class="line"><span class="cl">git push origin public
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> ..
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结合 Cloudflare Pages 自带 CI/CD，只需一个脚本即可实现一键推送更新。</p>
+<p>不要在 <code>hugo.yaml</code> 中配置 <code>baseURL</code>，这会导致所有部署唯一预览 URL 被重定向到 <code>baseURL</code>。</p>
+<h3 id="hugoyaml-示例"><code>hugo.yaml</code> 示例</h3>
+<p>这是我使用的 <a href="https://github.com/zzzhizhiw/zzzhizhi-blog/tree/main/hugo.yaml"><code>hugo.yaml</code></a>。</p>
+]]></content:encoded></item></channel></rss>
