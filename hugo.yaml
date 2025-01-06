@@ -43,11 +43,11 @@ params:
     disableHLJS: true
     disableFingerprinting: true
 
-    favicon: "/favicon.ico"
-    favicon16x16: "/favicon-16x16.ico"
-    favicon32x32: "/favicon-32x32.ico"
-    apple_touch_icon: "/apple-touch-icon.jpg"
-    safari_pinned_tab: "/safari-pinned-tab.svg"
+    favicon: "favicon.ico"
+    favicon16x16: "favicon-16x16.ico"
+    favicon32x32: "favicon-32x32.ico"
+    apple_touch_icon: "apple-touch-icon.jpg"
+    safari_pinned_tab: "safari-pinned-tab.svg"
 
   homeInfoParams:
     Title: "Hi there \U0001F44B"
@@ -82,7 +82,7 @@ defaultContentLanguageInSubdir: true
 languages:
   zh:
     languageName: "简体中文"
-    contentDir: "/content/zh"
+    contentDir: "content/zh"
     weight: 1
     title: "致之 | zzzhizhi"
     description: "致之的博客"
@@ -90,14 +90,14 @@ languages:
       author: "致之"
       label:
         text: "首页"
-        icon: "/apple-touch-icon.jpg"
+        icon: "apple-touch-icon.jpg"
         iconHeight: 35
       
       profileMode:
         enabled: true
         title: "致之"
         subtitle: "写代码是热爱，写到世界充满爱！"
-        imageUrl: "/apple-touch-icon.jpg"
+        imageUrl: "apple-touch-icon.jpg"
         buttons:
           - name: "博客"
             url: "posts"
@@ -116,7 +116,7 @@ languages:
         - name: email
           url: "mailto:mail@zzzhizhi.top"
         - name: rss
-          url: "/zh/index.xml"
+          url: "zh/index.xml"
       
       editPost:
         URL: "https://github.com/zzzhizhiw/zzzhizhi-blog/tree/main/content/zh"
@@ -127,24 +127,24 @@ languages:
       main:
         - identifier: "search"
           name: "搜索"
-          url: "/search"
+          url: "search"
           weight: 1
         - identifier: "archives"
           name: "归档"
-          url: "/archives"
+          url: "archives"
           weight: 2
         - identifier: "categories"
           name: "分类"
-          url: "/categories"
+          url: "categories"
           weight: 3
         - identifier: "tags"
           name: "标签"
-          url: "/tags"
+          url: "tags"
           weight: 4
 
   en:
     languageName: "English"
-    contentDir: "/content/en"
+    contentDir: "content/en"
     weight: 2
     title: "zzzhizhi | 致之"
     description: "zzzhizhi's blog"
@@ -152,14 +152,14 @@ languages:
       author: "zzzhizhi"
       label:
         text: "Home"
-        icon: "/apple-touch-icon.jpg"
+        icon: "apple-touch-icon.jpg"
         iconHeight: 35
       
       profileMode:
         enabled: true
         title: "zzzhizhi"
         subtitle: "Coding is love, coding to the world is full of love!"
-        imageUrl: "/apple-touch-icon.jpg"
+        imageUrl: "apple-touch-icon.jpg"
         buttons:
           - name: "Posts"
             url: "posts"
@@ -178,7 +178,7 @@ languages:
         - name: email
           url: "mailto:mail@zzzhizhi.top"
         - name: rss
-          url: "/en/index.xml"
+          url: "en/index.xml"
       
       editPost:
         URL: "https://github.com/zzzhizhiw/zzzhizhi-blog/tree/main/content/en"
@@ -189,19 +189,19 @@ languages:
       main:
         - identifier: "search"
           name: "Search"
-          url: "/search"
+          url: "search"
           weight: 1
         - identifier: "archives"
           name: "Archives"
-          url: "/archives"
+          url: "archives"
           weight: 2
         - identifier: "categories"
           name: "Categories"
-          url: "/categories"
+          url: "categories"
           weight: 3
         - identifier: "tags"
           name: "Tags"
-          url: "/tags"
+          url: "tags"
           weight: 4
 
 outputs:
