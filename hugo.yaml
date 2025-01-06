@@ -1,4 +1,4 @@
-languageCode: zh-cn
+languageCode: zh
 theme: PaperMod
 
 pagination:
@@ -76,13 +76,13 @@ params:
     limit: 10
     keys: ["title", "permalink", "summary", "content"]
 
-defaultContentLanguage: zh-cn
+defaultContentLanguage: zh
 defaultContentLanguageInSubdir: true
 
 languages:
-  zh-cn:
+  zh:
     languageName: "简体中文"
-    contentDir: "/content/zh-cn"
+    contentDir: "/content/zh"
     weight: 1
     title: "致之 | zzzhizhi"
     description: "致之的博客"
@@ -116,10 +116,10 @@ languages:
         - name: email
           url: "mailto:mail@zzzhizhi.top"
         - name: rss
-          url: "/zh-cn/index.xml"
+          url: "/zh/index.xml"
       
       editPost:
-        URL: "https://github.com/zzzhizhiw/zzzhizhi-blog/content/zh-cn"
+        URL: "https://github.com/zzzhizhiw/zzzhizhi-blog/tree/main/content/zh"
         Text: "编辑"
         appendFilePath: true
     
@@ -181,7 +181,7 @@ languages:
           url: "/en/index.xml"
       
       editPost:
-        URL: "https://github.com/zzzhizhiw/zzzhizhi-blog/content/en"
+        URL: "https://github.com/zzzhizhiw/zzzhizhi-blog/tree/main/content/en"
         Text: "Edit"
         appendFilePath: true
     

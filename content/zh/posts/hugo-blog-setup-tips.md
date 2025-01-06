@@ -24,7 +24,7 @@ params:
 
 ### 多语言
 
-这里配置很容易出问题。如果你像我一样喜欢搞多语言博客，请关注以下配置：
+这里的配置很容易出问题。如果你像我一样喜欢搞多语言博客，请关注以下配置：
 
 ```yaml
 defaultContentLanguage: zh-cn
@@ -37,7 +37,7 @@ defaultContentLanguageInSubdir: true
 - 影响 Hugo 生成的 URL 结构
 - 决定默认内容的语言标识
 
-以上配置建议不要修改。
+以上配置不要修改，除非的确要修改默认语言。
 
 `defaultContentLanguageInSubdir: true`
 
@@ -221,7 +221,7 @@ params:
 
 敲打 `hugo -D` 命令后，Hugo 会在 `/public` 目录下构建静态博客。每次构建前一般会将 `/public` 删掉来确保新构建的内容不出问题。
 
-在这种情况下，我希望只部署静态博客而不是整个 Hugo 框架。于是写了一个 Shell 脚本：
+在这种情况下，我希望只部署静态博客到仓库中，而不是整个 Hugo 框架。于是写了一个 Shell 脚本：
 
 ```shell
 @echo off
@@ -236,6 +236,28 @@ git commit -m "temp"
 git reset --soft origin/main
 git commit -m "update %date%"
 git push
+cd ..
+```
+
+因为不方便维护，我又改用同一仓库中单独创建源码分支和部署分支的方法。于是乎：
+
+```shell
+# 在主仓库创建 public 分支
+git checkout --orphan public
+git reset --hard
+git commit --allow-empty -m "Init public branch"
+git push origin public
+git checkout main
+
+# 将 public 目录关联到 public 分支
+git worktree add -B public public origin/public
+
+# 生成网站并推送
+hugo -D
+cd public
+git add -A
+git commit -m "Push %date%"
+git push origin public
 cd ..
 ```
 

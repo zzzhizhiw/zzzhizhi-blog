@@ -1,0 +1,45 @@
+name: Deploy public
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      hugoVersion:
+        description: 'Hugo version to use'
+        required: false
+        default: '0.128.0'
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: ${{ inputs.hugoVersion || '0.128.0' }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${{ env.HUGO_VERSION }}/hugo_extended_${{ env.HUGO_VERSION }}_linux-amd64.deb
+          sudo dpkg -i ${{ runner.temp }}/hugo.deb
+
+      - name: Build
+        run: hugo --minify --gc
+
+      - name: Deploy to public branch
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: public
+          FOLDER: public
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE: "Build: ({sha}) {msg}"
+          SQUASH_HISTORY: true

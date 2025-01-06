@@ -6,6 +6,7 @@
 # Folders
 _obj
 _test
+public
 
 # Architecture specific extensions/prefixes
 *.[568vq]
@@ -21,6 +22,7 @@ _testmain.go
 
 *.exe
 *.test
+*.cmd
 
 .vscode
 .DS_Store
