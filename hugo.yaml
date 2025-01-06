@@ -116,7 +116,7 @@ languages:
         - name: email
           url: "mailto:mail@zzzhizhi.top"
         - name: rss
-          url: "zh/index.xml"
+          url: "index.xml"
       
       editPost:
         URL: "https://github.com/zzzhizhiw/zzzhizhi-blog/tree/main/content/zh"
@@ -178,7 +178,7 @@ languages:
         - name: email
           url: "mailto:mail@zzzhizhi.top"
         - name: rss
-          url: "en/index.xml"
+          url: "index.xml"
       
       editPost:
         URL: "https://github.com/zzzhizhiw/zzzhizhi-blog/tree/main/content/en"
