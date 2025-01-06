@@ -1,0 +1,11 @@
+@import url('https://cdn.jsdelivr.net/npm/ubuntu-mono/css/ubuntu-mono.min.css?display=swap');
+@import url('https://cdn.jsdelivr.net/npm/harmonyos-sans-font/css/harmonyos-sans.min.css?display=swap');
+@import url('https://cdn.jsdelivr.net/npm/jetbrains-mono/css/jetbrains-mono.min.css?display=swap');
+
+body {
+  font-family: "Ubuntu Mono", "HarmonyOS Sans SC", sans-serif;
+}
+
+code, pre {
+  font-family: "JetBrains Mono", monospace;
+}
