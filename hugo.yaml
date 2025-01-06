@@ -82,7 +82,7 @@ defaultContentLanguageInSubdir: true
 languages:
   zh:
     languageName: "简体中文"
-    contentDir: "/content/zh"
+    contentDir: "content/zh"
     weight: 1
     title: "致之 | zzzhizhi"
     description: "致之的博客"
@@ -144,7 +144,7 @@ languages:
 
   en:
     languageName: "English"
-    contentDir: "/content/en"
+    contentDir: "content/en"
     weight: 2
     title: "zzzhizhi | 致之"
     description: "zzzhizhi's blog"
