@@ -32,7 +32,7 @@ jobs:
           sudo dpkg -i ${{ runner.temp }}/hugo.deb
 
       - name: Build
-        run: hugo --minify --gc --cleanDestinationDir
+        run: hugo -D
 
       - name: Deploy to public branch
         uses: s0/git-publish-subdir-action@develop
