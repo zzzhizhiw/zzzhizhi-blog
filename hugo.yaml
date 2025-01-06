@@ -12,8 +12,22 @@ enableEmoji: true
 enableGitInfo: true
 
 minify:
-  disableXML: true
+  disableXML: false
   minifyOutput: true
+  tdewolff:
+    html:
+      keepWhitespace: false
+    js:
+      keepVarNames: false
+      precision: 0
+    css:
+      keepCSS2: true
+    svg:
+      keepComments: false
+    json:
+      keepNumbers: false
+    xml:
+      keepWhitespace: false
 
 params:
   env: production
@@ -29,6 +43,7 @@ params:
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
   ShowWordCount: true
+  ShowFullTextinRSS: true
   ShowRssButtonInSectionTermList: true
   UseHugoToc: true
   disableSpecial1stPost: false
@@ -41,13 +56,9 @@ params:
 
   assets:
     disableHLJS: true
-    disableFingerprinting: true
-
-    favicon: "favicon.ico"
-    favicon16x16: "favicon-16x16.ico"
-    favicon32x32: "favicon-32x32.ico"
-    apple_touch_icon: "apple-touch-icon.jpg"
-    safari_pinned_tab: "safari-pinned-tab.svg"
+    favicon: true
+    disableFingerprinting: false
+    bundle: true
 
   homeInfoParams:
     Title: "Hi there \U0001F44B"
@@ -227,3 +238,6 @@ markup:
     startLevel: 1
     endLevel: 3
     ordered: false
+
+build:
+  useResourceCacheWhen: always
